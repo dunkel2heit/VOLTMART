@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<title>VOLTMART</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#0a0c10;
+--bg2:#0f1218;
+--bg3:#141820;
+--bg4:#1a2030;
+
+--border:#ffffff12;
+--border2:#ffffff20;
+--border3:#ffffff35;
+
+--text:#e8eaf0;
+--muted:#6b7280;
+--dim:#3a4050;
+
+--cyan:#00d4ff;
+--green:#00ff88;
+--amber:#ffb800;
+--red:#ff4455;
+--purple:#a855f7;
+
+--cyan-glow:rgba(0,212,255,0.12);
+--green-glow:rgba(0,255,136,0.12);
+}
+
+body{
+background:#05070b;
+padding:20px;
+font-family:'IBM Plex Mono',monospace;
+}
+
+#root{
+max-width:1600px;
+margin:auto;
+height:90vh;
+background:var(--bg);
+border-radius:16px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+color:var(--text);
+border:1px solid var(--border);
+}
+
+.header{
+padding:14px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:var(--bg2);
+border-bottom:1px solid var(--border);
+flex-wrap:wrap;
+gap:12px;
+}
+
+.logo{
+font-family:'Rajdhani',sans-serif;
+font-size:22px;
+font-weight:700;
+letter-spacing:.12em;
+color:var(--cyan);
+}
+
+.header-stats{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+}
+
+.hstat{
+text-align:center;
+}
+
+.hstat-val{
+font-family:'Rajdhani',sans-serif;
+font-size:18px;
+font-weight:700;
+}
+
+.hstat-label{
+font-size:9px;
+color:var(--muted);
+text-transform:uppercase;
+letter-spacing:.1em;
+}
+
+.body{
+display:grid;
+grid-template-columns:260px 1fr 280px;
+flex:1;
+overflow:hidden;
+}
+
+.panel{
+display:flex;
+flex-direction:column;
+border-right:1px solid var(--border);
+overflow:hidden;
+}
+
+.center-panel{
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+.panel-header,
+.floor-header{
+padding:12px;
+background:var(--bg2);
+border-bottom:1px solid var(--border);
+font-size:10px;
+letter-spacing:.1em;
+text-transform:uppercase;
+color:var(--muted);
+}
+
+.panel-body,
+.floor{
+flex:1;
+overflow-y:auto;
+padding:10px;
+}
+
+.floor{
+display:flex;
+flex-direction:column;
+gap:8px;
+scroll-behavior:smooth;
+}
+
+.add-form{
+background:var(--bg3);
+border:1px solid var(--border);
+border-radius:8px;
+padding:12px;
+margin-bottom:10px;
+}
+
+.form-title{
+font-size:10px;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:10px;
+}
+
+.frow{
+display:grid;
+gap:6px;
+margin-bottom:6px;
+}
+
+.frow.two{
+grid-template-columns:1fr 1fr;
+}
+
+.frow.three{
+grid-template-columns:1fr 1fr 1fr;
+}
+
+label{
+font-size:9px;
+color:var(--muted);
+display:block;
+margin-bottom:3px;
+text-transform:uppercase;
+}
+
+input,select{
+width:100%;
+padding:6px 8px;
+background:var(--bg4);
+border:1px solid var(--border2);
+border-radius:4px;
+color:var(--text);
+font-size:11px;
+font-family:inherit;
+}
+
+input:focus,select:focus{
+outline:none;
+border-color:var(--cyan);
+}
+
+.btn{
+padding:8px;
+border:none;
+cursor:pointer;
+border-radius:5px;
+font-family:inherit;
+font-size:10px;
+text-transform:uppercase;
+letter-spacing:.1em;
+}
+
+.btn-add{
+background:transparent;
+border:1px solid var(--cyan);
+color:var(--cyan);
+width:100%;
+}
+
+.btn-add:hover{
+background:var(--cyan-glow);
+}
+
+.product-item{
+background:var(--bg3);
+border:1px solid var(--border);
+border-radius:8px;
+padding:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+}
+
+.low-stock{
+border-color:rgba(255,184,0,.35);
+}
+
+.out-stock{
+border-color:rgba(255,68,85,.4);
+opacity:.6;
+}
+
+.prod-left{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.prod-name{
+font-family:'Rajdhani',sans-serif;
+font-size:15px;
+font-weight:600;
+}
+
+.prod-cat{
+font-size:9px;
+color:var(--muted);
+text-transform:uppercase;
+}
+
+.prod-stock{
+font-size:10px;
+color:var(--muted);
+}
+
+.prod-price{
+font-family:'Rajdhani',sans-serif;
+font-size:16px;
+font-weight:700;
+color:var(--cyan);
+}
+
+.product-actions{
+display:flex;
+gap:5px;
+margin-top:5px;
+}
+
+.small-btn{
+padding:4px 8px;
+font-size:9px;
+background:transparent;
+border:1px solid var(--border2);
+color:var(--muted);
+border-radius:4px;
+cursor:pointer;
+}
+
+.small-btn:hover{
+border-color:var(--cyan);
+color:var(--cyan);
+}
+
+.customer-card{
+background:var(--bg3);
+border:1px solid var(--border);
+border-radius:8px;
+padding:12px;
+}
+
+.customer-card.buying{
+border-color:rgba(0,255,136,.35);
+}
+
+.customer-card.left{
+opacity:.6;
+}
+
+.cust-top{
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin-bottom:8px;
+}
+
+.avatar{
+width:34px;
+height:34px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+font-size:12px;
+}
+
+.cust-name{
+font-family:'Rajdhani',sans-serif;
+font-size:15px;
+font-weight:600;
+}
+
+.cust-meta{
+font-size:9px;
+color:var(--muted);
+}
+
+.cust-thought{
+font-size:11px;
+color:#b7bcc8;
+line-height:1.5;
+margin-top:6px;
+}
+
+.badge{
+font-size:9px;
+padding:3px 7px;
+border-radius:4px;
+text-transform:uppercase;
+}
+
+.badge-buy{
+background:var(--green-glow);
+color:var(--green);
+}
+
+.badge-think{
+background:rgba(168,85,247,.14);
+color:var(--purple);
+}
+
+.badge-left{
+background:rgba(255,68,85,.1);
+color:var(--red);
+}
+
+.progress{
+height:3px;
+background:var(--bg4);
+border-radius:2px;
+overflow:hidden;
+margin-top:8px;
+}
+
+.progress-fill{
+height:100%;
+background:linear-gradient(90deg,var(--cyan),var(--green));
+transition:.3s;
+}
+
+.stat{
+background:var(--bg3);
+border:1px solid var(--border);
+border-radius:8px;
+padding:12px;
+margin-bottom:8px;
+}
+
+.stat-value{
+font-family:'Rajdhani',sans-serif;
+font-size:24px;
+font-weight:700;
+}
+
+.stat-label{
+font-size:9px;
+color:var(--muted);
+text-transform:uppercase;
+}
+
+.sales-log{
+font-size:11px;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.sale{
+padding:8px;
+background:var(--bg3);
+border-radius:6px;
+border:1px solid var(--border);
+}
+
+.empty{
+text-align:center;
+padding:40px 20px;
+font-size:11px;
+color:var(--dim);
+text-transform:uppercase;
+line-height:1.8;
+}
+
+@media(max-width:1100px){
+
+.body{
+grid-template-columns:1fr;
+}
+
+.panel,
+.center-panel{
+min-height:320px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="root">
+
+<div class="header">
+
+<div class="logo">VOLTMART</div>
+
+<div class="header-stats">
+
+<div class="hstat">
+<div class="hstat-val" id="cashTop">$5000</div>
+<div class="hstat-label">Cash</div>
+</div>
+
+<div class="hstat">
+<div class="hstat-val" id="salesTop">0</div>
+<div class="hstat-label">Sales</div>
+</div>
+
+<div class="hstat">
+<div class="hstat-val" id="revTop">$0</div>
+<div class="hstat-label">Revenue</div>
+</div>
+
+<div class="hstat">
+<div class="hstat-val" id="visTop">0</div>
+<div class="hstat-label">Visitors</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="body">
+
+<!-- LEFT -->
+<div class="panel">
+
+<div class="panel-header">
+Inventory
+</div>
+
+<div class="panel-body">
+
+<div class="add-form">
+
+<div class="form-title">
+Add Product
+</div>
+
+<div class="frow two">
+
+<div>
+<label>Name</label>
+<input id="p-name" placeholder="iPhone 16">
+</div>
+
+<div>
+<label>Category</label>
+
+<select id="p-cat">
+<option>Smartphone</option>
+<option>Laptop</option>
+<option>Tablet</option>
+<option>Headphones</option>
+<option>TV</option>
+<option>Camera</option>
+<option>Console</option>
+<option>Smartwatch</option>
+<option>Speaker</option>
+<option>Router</option>
+</select>
+
+</div>
+
+</div>
+
+<div class="frow three">
+
+<div>
+<label>Price</label>
+<input id="p-price" type="number">
+</div>
+
+<div>
+<label>Cost</label>
+<input id="p-cost" type="number">
+</div>
+
+<div>
+<label>Stock</label>
+<input id="p-stock" type="number">
+</div>
+
+</div>
+
+<button class="btn btn-add" onclick="addProduct()">
+Add To Store
+</button>
+
+</div>
+
+<div id="product-list"></div>
+
+</div>
+
+</div>
+
+<!-- CENTER -->
+<div class="center-panel">
+
+<div class="floor-header">
+Store Floor
+</div>
+
+<div class="floor" id="floor"></div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="panel">
+
+<div class="panel-header">
+Analytics
+</div>
+
+<div class="panel-body">
+
+<div class="stat">
+<div class="stat-value" id="cashStat">$5000</div>
+<div class="stat-label">Cash</div>
+</div>
+
+<div class="stat">
+<div class="stat-value" id="profitStat">$0</div>
+<div class="stat-label">Profit</div>
+</div>
+
+<div class="stat">
+<div class="stat-value" id="convStat">0%</div>
+<div class="stat-label">Conversion</div>
+</div>
+
+<div class="sales-log" id="sales-log"></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+const ICONS={
+Smartphone:'📱',
+Laptop:'💻',
+Tablet:'📟',
+Headphones:'🎧',
+TV:'📺',
+Camera:'📷',
+Console:'🎮',
+Smartwatch:'⌚',
+Speaker:'🔊',
+Router:'📡'
+};
+
+const INTENTS=[
+'Smartphone',
+'Laptop',
+'Tablet',
+'Headphones',
+'TV',
+'Camera',
+'Console',
+'Smartwatch',
+'Speaker',
+'Router'
+];
+
+const NAMES=[
+'Alex Chen',
+'Maria Santos',
+'James Okafor',
+'Priya Patel',
+'Tom Miller',
+'Aisha Rahman',
+'Carlos Vega',
+'Emma Brooks',
+'Yuki Tanaka',
+'Omar Hassan'
+];
+
+let state={
+cash:5000,
+revenue:0,
+profit:0,
+sales:0,
+visitors:0,
+convBought:0,
+products:[],
+customers:[],
+salesLog:[]
+};
+
+function fm(n){
+return '$'+n.toFixed(2);
+}
+
+function fmShort(n){
+return n>=1000
+?'$'+(n/1000).toFixed(1)+'k'
+:'$'+Math.round(n);
+}
+
+function saveGame(){
+localStorage.setItem(
+'voltmart-save',
+JSON.stringify(state)
+);
+}
+
+function loadGame(){
+
+const save=
+localStorage.getItem('voltmart-save');
+
+if(save){
+
+state={
+...state,
+...JSON.parse(save)
+};
+
+}
+
+}
+
+loadGame();
+
+function updateStats(){
+
+document.getElementById('cashTop').textContent=
+fmShort(state.cash);
+
+document.getElementById('salesTop').textContent=
+state.sales;
+
+document.getElementById('revTop').textContent=
+fmShort(state.revenue);
+
+document.getElementById('visTop').textContent=
+state.visitors;
+
+document.getElementById('cashStat').textContent=
+fm(state.cash);
+
+document.getElementById('profitStat').textContent=
+fm(state.profit);
+
+const conv=
+state.visitors
+?Math.round((state.convBought/state.visitors)*100)
+:0;
+
+document.getElementById('convStat').textContent=
+conv+'%';
+
+}
+
+function addProduct(){
+
+const name=
+document.getElementById('p-name').value.trim();
+
+const cat=
+document.getElementById('p-cat').value;
+
+const price=
+parseFloat(document.getElementById('p-price').value);
+
+const cost=
+parseFloat(document.getElementById('p-cost').value);
+
+const stock=
+parseInt(document.getElementById('p-stock').value);
+
+if(
+!name||
+isNaN(price)||
+isNaN(cost)||
+isNaN(stock)
+){
+alert('Fill all fields');
+return;
+}
+
+if(price<=0||cost<=0||stock<=0){
+alert('Values must be positive');
+return;
+}
+
+if(cost>=price){
+alert('Price must exceed cost');
+return;
+}
+
+const inventoryCost=cost*stock;
+
+if(state.cash<inventoryCost){
+alert('Not enough cash');
+return;
+}
+
+state.cash-=inventoryCost;
+
+state.products.push({
+id:Date.now(),
+name,
+cat,
+price,
+cost,
+stock,
+sold:0
+});
+
+document.getElementById('p-name').value='';
+document.getElementById('p-price').value='';
+document.getElementById('p-cost').value='';
+document.getElementById('p-stock').value='';
+
+renderProducts();
+updateStats();
+saveGame();
+
+}
+
+function restockProduct(id){
+
+const p = state.products.find(x => x.id === id);
+if(!p) return;
+
+/* fallback for old saves */
+if(!p.initialStock){
+p.initialStock = p.stock || 5;
+}
+
+/* how much we need to reach original stock */
+const needed = p.initialStock - p.stock;
+
+/* if already full, do nothing */
+if(needed <= 0){
+alert("Already fully stocked");
+return;
+}
+
+const totalCost = needed * p.cost;
+
+if(state.cash < totalCost){
+alert("Not enough cash");
+return;
+}
+
+/* restore exactly to original level */
+state.cash -= totalCost;
+p.stock += needed;
+
+renderProducts();
+updateStats();
+saveGame();
+
+}
+
+function removeProduct(id){
+
+state.products=
+state.products.filter(p=>p.id!==id);
+
+renderProducts();
+saveGame();
+
+}
+
+function renderProducts(){
+
+const el=
+document.getElementById('product-list');
+
+if(!state.products.length){
+
+el.innerHTML=`
+<div class="empty">
+No Inventory<br>
+Add Products
+</div>
+`;
+
+return;
+}
+
+el.innerHTML=
+state.products.map(p=>{
+
+const cls=
+p.stock===0
+?'out-stock'
+:p.stock<=3
+?'low-stock'
+:'';
+
+return `
+<div class="product-item ${cls}">
+
+<div class="prod-left">
+
+<div style="font-size:22px">
+${ICONS[p.cat]}
+</div>
+
+<div>
+
+<div class="prod-name">
+${p.name}
+</div>
+
+<div class="prod-cat">
+${p.cat}
+</div>
+
+<div class="prod-stock">
+Stock: ${p.stock} · Sold: ${p.sold}
+</div>
+
+<div class="product-actions">
+
+<button
+class="small-btn"
+onclick="restockProduct(${p.id})">
++ Restock
+</button>
+
+<button
+class="small-btn"
+onclick="removeProduct(${p.id})">
+Remove
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="prod-price">
+${fm(p.price)}
+</div>
+
+</div>
+`;
+
+}).join('');
+
+}
+
+function renderSales(){
+
+const el=
+document.getElementById('sales-log');
+
+if(!state.salesLog.length){
+
+el.innerHTML=`
+<div class="empty">
+No Sales Yet
+</div>
+`;
+
+return;
+}
+
+el.innerHTML=
+state.salesLog.slice(0,15).map(s=>`
+
+<div class="sale">
+
+<div style="font-weight:700">
+${s.product}
+</div>
+
+<div style="font-size:10px;color:var(--muted)">
+${s.customer}
+</div>
+
+<div style="margin-top:4px;color:var(--green)">
++${fm(s.price)}
+</div>
+
+</div>
+
+`).join('');
+
+}
+
+function renderFloor(){
+
+const el=
+document.getElementById('floor');
+
+if(!state.customers.length){
+
+el.innerHTML=`
+<div class="empty">
+Waiting For Customers...
+</div>
+`;
+
+return;
+}
+
+el.innerHTML=
+state.customers.map(c=>`
+
+<div class="customer-card ${c.status==='bought'?'buying':''} ${c.status==='left'?'left':''}">
+
+<div class="cust-top">
+
+<div
+class="avatar"
+style="
+background:${c.bg};
+color:${c.fg};
+">
+${c.initials}
+</div>
+
+<div style="flex:1">
+
+<div class="cust-name">
+${c.name}
+</div>
+
+<div class="cust-meta">
+Budget ${fm(c.budget)}
+· Wants ${c.intent}
+</div>
+
+</div>
+
+<div class="badge ${
+c.status==='bought'
+?'badge-buy'
+:c.status==='thinking'
+?'badge-think'
+:'badge-left'
+}">
+${c.status}
+</div>
+
+</div>
+
+<div class="cust-thought">
+${c.thought}
+</div>
+
+<div class="progress">
+<div
+class="progress-fill"
+style="width:${c.progress}%">
+</div>
+</div>
+
+</div>
+
+`).join('');
+
+}
+
+function spawnCustomer(){
+
+if(!state.products.length)return;
+
+const name=
+NAMES[
+Math.floor(Math.random()*NAMES.length)
+];
+
+const initials=
+name.split(' ')
+.map(w=>w[0])
+.join('');
+
+const intent=
+INTENTS[
+Math.floor(Math.random()*INTENTS.length)
+];
+
+const customer={
+
+id:Date.now(),
+
+name,
+
+initials,
+
+intent,
+
+budget:
+Math.floor(Math.random()*2200)+200,
+
+status:'thinking',
+
+thought:'Browsing products...',
+
+progress:10,
+
+bg:'#132030',
+
+fg:'#00d4ff'
+
+};
+
+state.customers.unshift(customer);
+
+if(state.customers.length>10){
+state.customers.pop();
+}
+
+state.visitors++;
+
+renderFloor();
+updateStats();
+
+runCustomer(customer);
+
+}
+
+async function runCustomer(c){
+
+await delay(800);
+
+c.progress=35;
+c.thought='Comparing specifications...';
+
+renderFloor();
+
+await delay(1000);
+
+const matching=
+state.products.filter(p=>
+
+p.stock>0&&
+p.price<=c.budget&&
+p.cat===c.intent
+
+);
+
+let buyChance=
+matching.length
+?0.82
+:0.18;
+
+if(Math.random()<buyChance&&matching.length){
+
+const prod=
+matching[
+Math.floor(Math.random()*matching.length)
+];
+
+prod.stock--;
+prod.sold++;
+
+const profit=
+prod.price-prod.cost;
+
+state.cash+=prod.price;
+state.revenue+=prod.price;
+state.profit+=profit;
+state.sales++;
+state.convBought++;
+
+state.salesLog.unshift({
+
+product:prod.name,
+customer:c.name,
+price:prod.price
+
+});
+
+if(state.salesLog.length>30){
+state.salesLog.pop();
+}
+
+c.status='bought';
+
+c.progress=100;
+
+c.thought=
+`Purchased ${prod.name} for ${fm(prod.price)}`;
+
+}else{
+
+c.status='left';
+
+c.progress=100;
+
+c.thought=
+'Could not find the right product';
+
+}
+
+renderProducts();
+renderFloor();
+renderSales();
+updateStats();
+saveGame();
+
+setTimeout(()=>{
+
+state.customers=
+state.customers.filter(x=>x.id!==c.id);
+
+renderFloor();
+
+},12000);
+
+}
+
+function delay(ms){
+return new Promise(r=>setTimeout(r,ms));
+}
+
+setInterval(()=>{
+
+if(state.products.length){
+
+spawnCustomer();
+
+}
+
+},5000);
+
+setInterval(saveGame,2000);
+
+renderProducts();
+renderFloor();
+renderSales();
+updateStats();
+
+</script>
+
+</body>
+</html>
